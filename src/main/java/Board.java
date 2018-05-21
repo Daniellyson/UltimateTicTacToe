@@ -1,6 +1,7 @@
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 class Board {
 //  Members
@@ -9,6 +10,7 @@ class Board {
 
 //  Methods
   public Board() {
+    //init of the board
     for (int i = 0 ; i < Uttt.board_size_ ; i++) {
       for (int j = 0 ; j < Uttt.board_size_ ; j++) {
         uboard_[i][j] = new MiniBoard();
@@ -22,6 +24,8 @@ class Board {
     uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), (byte)(type));
     return 0;
   }
+
+
 
   public void display() {
     System.out.println("The current Game position is:");
