@@ -1,39 +1,49 @@
-//Types....
-// 0 = empty
-// 1 = X
-// 2 = O
+package UltimateTicTacToe;
 
-class Miniboard {
-  private byte[] board;
-  private byte result;
-  private int[] nummoves;
+import java.awt.Point;
 
-  public Miniboard() {
-    board = new byte[3][3];
-    result = 0;
-    nummoves = new int[2];
+//Types
+//0 = empty
+//1 = X
+//2 = O
+
+class MiniBoard {
+//  Members
+  private byte[][] board_;
+  private byte result_;
+  
+//  Methods
+  public MiniBoard() {
+    board_ = new byte[Uttt.board_size_][Uttt.board_size_];
+//    board_[0][0] = 1;
+//    board_[0][1] = 2;
+//    board_[0][2] = 3;
+//    board_[1][0] = 4;
+//    board_[1][1] = 5;
+//    board_[1][2] = 6;
+//    board_[2][0] = 7;
+//    board_[2][1] = 8;
+//    board_[2][2] = 9;
+    result_ = 0;
   }
-
-  public byte get (int x, int y) {
-    if(result==0) {
-      return board[x][y];
-    }
-    else {
-      return result;
+  
+  public byte getPosition(Point coordinates) {
+    if(result_ == 0) {
+      return board_[coordinates.x][coordinates.y];
+    } else {
+      return result_;
     }
   }
-
-  public int setX (int x, int y, byte type) {
-    if ( result!=0 || (board[x][y]) != 0 || type<1 || type>2) {
-      return -1; //illegal
-    }
-    else {
-      board[x][y] = type;
-      nummoves[type-1]++;
-      if ( nummoves[0]>=3 || nummoves[1]>=3 ) {
-        result = Game.checkifwon(board);
-      }
-      return 0 //legal
+  
+  public int placeStone(Point placement, byte type) {
+    if ((result_ != 0) || (board_[placement.x][placement.y] != 0)) {
+//      illegal
+      return -1;
+    } else {
+//      legal
+      type++;
+      board_[placement.x][placement.y] = type;
+      return 0;
     }
   }
 }

@@ -1,30 +1,39 @@
-class Board {
-  private Miniboard[] uboard;
-  private byte[] status;
-  private int[] numresults; // number of miniboards decided for each X and O
+package UltimateTicTacToe;
 
+import java.awt.Point;
+
+class Board {
+//  Members
+  private MiniBoard[][] uboard_ = new MiniBoard[Uttt.board_size_][Uttt.board_size_];
+//  private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
+
+//  Methods
   public Board() {
-    uboard = new Miniboard[3][3];
-    for (int i=0 ; i<3 ; i++ ) {
-      for ( int j=0 ; j<3 ; j++ ) {
-        uboard[i][j] = new Miniboard();
+    for (int i = 0 ; i < Uttt.board_size_ ; i++) {
+      for (int j = 0 ; j < Uttt.board_size_ ; j++) {
+        uboard_[i][j] = new MiniBoard();
       }
     }
-    status = new byte[3][3];
-    numresults = new int[2];
   }
 
-  public void set() {
-    // some code
-    if ( numresults[0]>=3 || numresults[1]>=3 ) {
-      return (Game.checkifwon(status));
-    }
-    else {
-      return 0;
-    }
+  public int placeStone(Point point, int type) {
+    point.x--;
+    point.y--;
+    uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), (byte)(type));
+    return 0;
   }
 
   public void display() {
-
+    System.out.println("The current Game position is:");
+    System.out.println("");
+    for(int c=0; c < (3 * Uttt.board_size_); c++) {
+      for(int d= 0; d < (3 * Uttt.board_size_); d++) {
+//        display code is always ugly if you want to look it a certain way :C
+        System.out.print(uboard_[c/Uttt.board_size_][d/Uttt.board_size_].getPosition(new Point(c%3, d%3)));
+        if(((d%Uttt.board_size_) == Uttt.board_size_-1) && !(d == (3*Uttt.board_size_ - 1))) System.out.print("-");
+      }
+      if((c%Uttt.board_size_) == Uttt.board_size_-1) System.out.println("");
+      System.out.println("");
+    }
   }
 }
