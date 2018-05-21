@@ -1,4 +1,3 @@
-package UltimateTicTacToe;
 
 import java.awt.Point;
 
