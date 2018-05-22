@@ -16,24 +16,32 @@ class Board {
     }
   }
 
-  public int placeStone(Point point, int type) {
+  public int placeStone(Point point, byte type) {
     point.x--;
     point.y--;
-    uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), (byte)(type));
+    uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), type);
     return 0;
   }
 
   public void display() {
     System.out.println("The current Game position is:");
     System.out.println("");
-    for(int c=0; c < (3 * Uttt.board_size_); c++) {
-      for(int d= 0; d < (3 * Uttt.board_size_); d++) {
+    int size = Uttt.board_size_;
+    for(int c=0; c < (3 * size); c++) {
+      for(int d= 0; d < (3 * size); d++) {
 //        display code is always ugly if you want to look it a certain way :C
-        System.out.print(uboard_[c/Uttt.board_size_][d/Uttt.board_size_].getPosition(new Point(c%3, d%3)));
-        if(((d%Uttt.board_size_) == Uttt.board_size_-1) && !(d == (3*Uttt.board_size_ - 1))) System.out.print("-");
+        System.out.print(getPosition(new Point(d, c)));
+        if(((d%size) == size-1) && !(d == (3*size - 1))) System.out.print("-");
       }
-      if((c%Uttt.board_size_) == Uttt.board_size_-1) System.out.println("");
+      if((c%size) == size-1) System.out.println("");
       System.out.println("");
     }
+  }
+  
+  public char getPosition(Point position) {
+    int x = position.x;
+    int y = position.y;
+    int size = Uttt.board_size_;
+    return uboard_[x/size][y/size].getPosition(new Point(x%3, y%3));
   }
 }

@@ -8,7 +8,7 @@ class Game {
 //  private String pOname;
   private int result_;
   private Board board_;
-  private int turn_;
+  private byte turn_;
   private Point play_zone_;
 
   
@@ -51,11 +51,11 @@ class Game {
       Point placed_stone;
       do {
 //      input         
-        placed_stone = get_placement();
+        placed_stone = getPlacement();
 //      test input
       } while(!isPlacementAllowed(placed_stone));
       
-      result_ = board_.placeStone(placed_stone, turn_%2);
+      result_ = board_.placeStone(placed_stone, (byte)(turn_%2));
     }
     return 0;
   }
@@ -66,7 +66,7 @@ class Game {
   }
   
 //  private methods
-  private Point get_placement() {
+  private Point getPlacement() {
     System.out.println("Where do you want to play in field: row " + play_zone_.x + " and column " + play_zone_.y);
     System.out.println("row/col 1-3");
     String[] input = Uttt.scanner_.nextLine().split(" ");
