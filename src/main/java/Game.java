@@ -68,7 +68,7 @@ class Game {
 //  private methods
   private Point getPlacement() {
     System.out.println("Where do you want to play in field: row " + play_zone_.x + " and column " + play_zone_.y);
-    System.out.println("row/col 1-3");
+    System.out.println("Example : col/row 1 3");
     String[] input = Uttt.scanner_.nextLine().split(" ");
     assert input.length == 2;
     Point placement = new Point(Integer.parseInt(input[0]), Integer.parseInt(input[1]));

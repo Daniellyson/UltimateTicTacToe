@@ -1,10 +1,12 @@
 
 
 import java.awt.Point;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class Board {
 //  Members
+//  private ArrayList<ArrayList<MiniBoard>> uboard = new ArrayList<>();
   private MiniBoard[][] uboard_ = new MiniBoard[Uttt.board_size_][Uttt.board_size_];
 //  private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
 
@@ -31,14 +33,30 @@ class Board {
     System.out.println("The current Game position is:");
     System.out.println("");
     int size = Uttt.board_size_;
-    for(int c=0; c < (3 * size); c++) {
-      for(int d= 0; d < (3 * size); d++) {
-//        display code is always ugly if you want to look it a certain way :C
-        System.out.print(getPosition(new Point(d, c)));
-        if(((d%size) == size-1) && !(d == (3*size - 1))) System.out.print("-");
+    System.out.println("  1 2 3     4 5 6      7 8 9");
+    System.out.println("┌───────────┬───────────┬───────────┐");
+
+    for(int row =0; row < (3 * size); row++) {
+
+      for(int column= 0; column < (3 * size); column++) {
+
+          if (column == 0) System.out.print("│");
+
+        System.out.print(" "+getPosition(new Point(column, row))+" ");
+          if (column == 8) System.out.print(" │");
+
+        if(((column%size) == size-1) && !(column == (3*size - 1))) System.out.print(" │");
       }
-      if((c%size) == size-1) System.out.println("");
-      System.out.println("");
+
+      if((row %size) == size-1){
+          if (row == 8){
+              System.out.print("\n└───────────┴───────────┴───────────┘");
+          }
+          else{
+              System.out.print("\n├───────────┼───────────┼───────────┤");
+          }
+      }
+      System.out.println();
     }
   }
   

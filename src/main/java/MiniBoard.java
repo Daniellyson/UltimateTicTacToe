@@ -11,7 +11,7 @@ class MiniBoard {
   private char[][] board_ = new char[Uttt.board_size_][Uttt.board_size_];
   private char[] types_ = new char[2];
   private char result_ = 0;
-  private char empty_space_ = '_';
+  private char empty_space_ = '·';
   
 //  Methods
   public MiniBoard() {
