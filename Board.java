@@ -17,8 +17,6 @@ class Board {
   }
 
   public int placeStone(Point point, byte type) {
-    point.x--;
-    point.y--;
     uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), type);
     return 0;
   }

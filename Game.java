@@ -30,8 +30,7 @@ class Game {
     System.out.println("init game");
     init();
     System.out.println("run game");
-    run();
-    return 0;
+    return run();
   }
   
   public int run() {
@@ -48,13 +47,12 @@ class Game {
         System.out.println("You can play everywhere!");
       }
       
-      Point placed_stone;
-      do {
-//      input         
-        placed_stone = getPlacement();
-//      test input
-      } while(!isPlacementAllowed(placed_stone));
+//      get input
+      Point placed_stone = getPlacement();
       
+      if (placed_stone.x == -2) {
+        return 1;
+      }
       result_ = board_.placeStone(placed_stone, (byte)(turn_%2));
     }
     return 0;
@@ -68,18 +66,47 @@ class Game {
 //  private methods
   private Point getPlacement() {
     System.out.println("Where do you want to play in field: row " + play_zone_.x + " and column " + play_zone_.y);
-    System.out.println("row/col 1-3");
-    String[] input = Uttt.scanner_.nextLine().split(" ");
-    assert input.length == 2;
-    Point placement = new Point(Integer.parseInt(input[0]), Integer.parseInt(input[1]));
+    boolean valid = false;
+    String[] input;
+    Point placement = null;
+    do {
+      input = Uttt.scanner_.nextLine().split(" ");
+      if(input.length == 1 && input[0].equalsIgnoreCase("quit")) {
+        System.out.println("Quitting the match.");      
+        placement = new Point(-2, -2);
+        valid = true;
+        break;
+      }
+      if(input.length != 2) {
+        System.out.println("Your coordinates have to be split into 2 parts by a space, like this '2 3'.");
+        continue;
+      }
+      try {
+        placement = new Point(Integer.parseInt(input[0]) - 1, Integer.parseInt(input[1]) - 1);
+      } catch (NumberFormatException e) {
+        System.out.println("Those are not normal numbers it seems.");        
+        continue;
+      }
+      
+      
+      if(!isPlacementAllowed(placement)) {
+        System.out.println("The place you want to play at is not allowed.");
+        continue;
+      }
+      valid = true;
+    } while(valid == false);
+    assert placement != null;
     return placement;
   }
 
   private Boolean isPlacementAllowed(Point placement) {
-    if(placement.x < 1) return false;
-    if(placement.y < 1) return false;
-    if(placement.x > (3 * Uttt.board_size_)) return false;
-    if(placement.y > (3 * Uttt.board_size_)) return false;
+    System.out.println("X is:" + placement.x + " and y is: " + placement.y);
+    
+    if(placement.x < 0) return false;
+    if(placement.y < 0) return false;
+    if(placement.x >= (3 * Uttt.board_size_)) return false;
+    if(placement.y >= (3 * Uttt.board_size_)) return false;
+    if(board_.getPosition(placement) != Uttt.empty_space_) return false;
     return true;
   }
   

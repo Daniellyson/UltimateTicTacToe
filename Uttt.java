@@ -6,6 +6,7 @@ class Uttt {
 //  Members
   public static Scanner scanner_;
   public static final int board_size_ = 3;
+  public static final char empty_space_ = '_';
   
 //  Methods
   public static void main(String[] args) {
@@ -18,18 +19,19 @@ class Uttt {
       Game game;
       System.out.println("start: Start a new game");
       System.out.println("rules: How to play");
-      System.out.println("quit: Quit the game");
+      System.out.println("quit: Quit the game, works while playing too");
       
 //      get input
       System.out.println("Enter your next command");  
       command = scanner_.nextLine();  
+      command = command.toLowerCase();
       
 //      process input    
       switch(command) {
         case "start" :
 //          create game object, start
           game = new Game();
-          System.out.println("start game");
+          System.out.println("Start game");
           control = game.start();
           break;
         case "rules" :
@@ -40,7 +42,7 @@ class Uttt {
           control = 1;
           break;
         default :
-          System.out.println("BUG");
+          System.out.println("Sry that is not a valid command.");
       }
     }
 
