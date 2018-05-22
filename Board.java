@@ -5,7 +5,7 @@ import java.awt.Point;
 class Board {
 //  Members
   private MiniBoard[][] uboard_ = new MiniBoard[Uttt.board_size_][Uttt.board_size_];
-//  private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
+  private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
 
 //  Methods
   public Board() {
@@ -17,7 +17,13 @@ class Board {
   }
 
   public int placeStone(Point point, byte type) {
-    uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone(new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_), type);
+    byte temp;
+    Point pp = new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_);
+    temp = uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone( pp  , type);
+    if (temp != Uttt.E) {
+      status_[point.x / Uttt.board_size_][point.y / Uttt.board_size_] = temp;
+      return ( Game.checkIfWon(status_) );
+    }
     return 0;
   }
 
@@ -35,11 +41,15 @@ class Board {
       System.out.println("");
     }
   }
-  
-  public char getPosition(Point position) {
+
+  public byte getPosition(Point position) {
     int x = position.x;
     int y = position.y;
     int size = Uttt.board_size_;
     return uboard_[x/size][y/size].getPosition(new Point(x%3, y%3));
+  }
+
+  public byte getStatus(Point p) {
+    return status_[p.x][p.y];
   }
 }

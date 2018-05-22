@@ -6,7 +6,12 @@ class Uttt {
 //  Members
   public static Scanner scanner_;
   public static final int board_size_ = 3;
-  public static final char empty_space_ = '_';
+  //public static final char empty_space_ = '_';
+  public static final byte E = 0; //empty
+  public static final byte X = 1;
+  public static final byte O = 2;
+  public static final byte WON = -10;
+
 
 //  Methods
   public static void main(String[] args) {
@@ -14,15 +19,15 @@ class Uttt {
     System.out.println("Welcome! To the game of Ultimate Tic Tac Toe");
     int control = 0;
     String command;
+	Game game;
 
     while(control == 0) {
-      Game game;
       System.out.println("start: Start a new game");
       System.out.println("rules: How to play");
       System.out.println("quit: Quit the game, works while playing too");
 
 //      get input
-      System.out.println("Enter your next command");
+      System.out.println("So what you wanna do ? (for example type 'start' to start)");
       command = scanner_.nextLine();
       command = command.toLowerCase();
 
@@ -31,7 +36,7 @@ class Uttt {
         case "start" :
 //          create game object, start
           game = new Game();
-          System.out.println("Start game");
+          System.out.println("Starting game...");
           control = game.start();
           break;
         case "rules" :
@@ -48,11 +53,11 @@ class Uttt {
           control = 1;
           break;
         default :
-          System.out.println("Sry that is not a valid command.");
+          System.out.println("No such option. Try again");
       }
     }
 
-    System.out.println("Control code: " + control);
+    //System.out.println("Control code: " + control); // whats the point of this, it will always be 1
     end();
   }
 
