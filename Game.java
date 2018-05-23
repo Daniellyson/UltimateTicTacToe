@@ -73,10 +73,14 @@ class Game {
     int count;
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check horizontal 1 by 1
       t = b[i][0];
+      if (t==0) {
+        continue;
+      }
       count = 1;
       for (int j=1 ; j<Uttt.board_size_ ; j++ ) {
         if ( b[i][j]==t ) {
           count++;
+          System.out.println("Count: "+count);
         }
         else {
           break;
@@ -89,6 +93,9 @@ class Game {
 
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check vertical 1 by 1
       t = b[0][i];
+      if (t==0) {
+        continue;
+      }
       count = 1;
       for (int j=1 ; j<Uttt.board_size_ ; j++ ) {
         if ( b[j][i]==t ) {
@@ -102,34 +109,39 @@ class Game {
         }
       }
     }
+    int i,j;
     t = b[0][0];
-    count=1;
-    int i=1;
-    int j=1;
-    for (  ; i<Uttt.board_size_ ; i++ , j++ ) { //check diagonal 1
-      if ( b[j][i]==t ) {
-        count++;
-      }
-      else {
-        break;
-      }
-      if (count == Uttt.board_size_) {
-        return t;
+    if (t!=0) {
+      count=1;
+      i=1;
+      j=1;
+      for (  ; i<Uttt.board_size_ ; i++ , j++ ) { //check diagonal 1
+        if ( b[j][i]==t ) {
+          count++;
+        }
+        else {
+          break;
+        }
+        if (count == Uttt.board_size_) {
+          return t;
+        }
       }
     }
     t = b[0][Uttt.board_size_ - 1];
-    count=1;
-    i = 1;
-    j = (Uttt.board_size_ - 2);
-    for (  ; i<Uttt.board_size_ ; i++,j-- ) { //check diagonal 2
-      if ( b[j][i]==t ) {
-        count++;
-      }
-      else {
-        break;
-      }
-      if (count == Uttt.board_size_) {
-        return t;
+    if (t!=0) {
+      count=1;
+      i = 1;
+      j = (Uttt.board_size_ - 2);
+      for (  ; i<Uttt.board_size_ ; i++,j-- ) { //check diagonal 2
+        if ( b[j][i]==t ) {
+          count++;
+        }
+        else {
+          break;
+        }
+        if (count == Uttt.board_size_) {
+          return t;
+        }
       }
     }
     return Uttt.E;
