@@ -46,9 +46,6 @@ class MiniBoard {
       //System.out.println("legal placement");
       board_[placement.x][placement.y] = type;
       result_= Game.checkIfWon(board_);
-      if(result_!=0){
-        System.out.println("won");
-      }
       return result_;
     }
   }

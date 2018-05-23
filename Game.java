@@ -80,7 +80,6 @@ class Game {
       for (int j=1 ; j<Uttt.board_size_ ; j++ ) {
         if ( b[i][j]==t ) {
           count++;
-          System.out.println("Count: "+count);
         }
         else {
           break;
