@@ -1,28 +1,28 @@
-package UltimateTicTacToe;
+//package UltimateTicTacToe;
 
 import java.awt.Point;
 
 class Game {
-//  Members
+  //  Members
   private String[] player_name_;
-//  private String pOname;
+  //  private String pOname;
   private int result_;
   private Board board_;
   private byte turn_;
   private Point play_zone_; // a 3x3 telling whhats the next eligible zone
 
 
-//  Methods
+  //  Methods
   public Game () {
     player_name_ = new String[2]; //1%2 = X, 0%2 = O
-//    input name of both players and initialize instance variables
+    //    input name of both players and initialize instance variables
   }
 
   public void init() {
     board_ = new Board();
     turn_ = 0; // 1%2= X, 0%2= O
-    player_name_[0] = "X"; //global constant - 1
-    player_name_[1] = "O"; //global constant - 1
+    player_name_[Uttt.X - 1] = "X"; //global constant -
+    player_name_[Uttt.O - 1] = "O"; //global constant - 1
     play_zone_ = new Point(-1, -1); // this means, can play anywhere
   }
 
@@ -35,20 +35,19 @@ class Game {
 
   public int run() {
     while (result_ == 0) {
-      turn_++;
-      System.out.println("Turn: " + turn_);
+      System.out.println("Turn: " + (turn_+1));
       board_.display();
 
-//      if(result_ == 0) return 3;
-      System.out.println(player_name_[turn_ % 2] + " it is your move");
+      //      if(result_ == 0) return 3;
+      System.out.println(player_name_[(turn_ % 2)] + " it is your move");
       if(play_zone_.x != -1) {
-        System.out.println("You have to play in zone (" + play_zone_.x + "," + play_zone_.y + ")");
+        System.out.println("You have to play in zone (" + (play_zone_.x+1) + "," + (play_zone_.y+1) + ")");
       } else {
-        System.out.println("You can play everywhere!");
+        System.out.println("You can play anywhere!");
       }
 
-//      get input
-      Point placed_stone = getPlacement(); // returns a point with 9x9 limit
+      //      get input
+      Point placed_stone = getPlacement(); // returns a point with 9x9 limit(0 to 8)
       play_zone_.x = placed_stone.x % Uttt.board_size_; //set future playzone according to current placement
       play_zone_.y = placed_stone.y % Uttt.board_size_;
       if ( board_.getStatus(play_zone_)!=Uttt.E ) {
@@ -59,8 +58,10 @@ class Game {
       if (placed_stone.x == -2) {
         return 1;
       }
-      result_ = board_.placeStone(placed_stone, (byte)(turn_%2));
+      result_ = board_.placeStone(placed_stone, (byte)( (turn_%2)+1 ));
+      turn_++;
       if ( result_!=Uttt.E ) {
+        board_.display();
         System.out.println("We have a winner!! Player: " + player_name_[result_-1] );
       }
     }
@@ -134,10 +135,10 @@ class Game {
     return Uttt.E;
   }
 
-//  private methods
+  //  private methods
   private Point getPlacement() {
     //System.out.println("Where do you want to play in field: row " + play_zone_.x + " and column " + play_zone_.y);
-    System.out.println("Where do you want to play");
+    System.out.println("Where do you want to play( horizontal vertical)");
     boolean valid = false;
     String[] input;
     Point placement = null;
@@ -179,6 +180,13 @@ class Game {
     if(placement.x >= (Uttt.board_size_ * Uttt.board_size_)) return false;
     if(placement.y >= (Uttt.board_size_ * Uttt.board_size_)) return false;
     if(board_.getPosition(placement) != Uttt.E) return false;
+    if (play_zone_.x != -1) {
+      //play_zone_= 0-2 ; placement= 0-8
+      if ( ((placement.x/Uttt.board_size_)!=play_zone_.x) || ((placement.y/Uttt.board_size_)!=play_zone_.y) ) {
+        System.out.println("No cheating! Play in specified playzone");
+        return false;
+      }
+    }
     return true;
   }
 
