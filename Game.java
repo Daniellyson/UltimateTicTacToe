@@ -173,7 +173,7 @@ class Game {
   }
 
   private Boolean isPlacementAllowed(Point placement) {
-    System.out.println("X is:" + placement.x + " and y is: " + placement.y);
+    //System.out.println("X is:" + placement.x + " and y is: " + placement.y);
 
     if(placement.x < 0) return false;
     if(placement.y < 0) return false;
