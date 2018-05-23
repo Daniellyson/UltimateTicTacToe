@@ -73,7 +73,7 @@ class Game {
     int count;
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check horizontal 1 by 1
       t = b[i][0];
-      if (t==0) {
+      if (t==Uttt.E) {
         continue;
       }
       count = 1;
@@ -93,7 +93,7 @@ class Game {
 
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check vertical 1 by 1
       t = b[0][i];
-      if (t==0) {
+      if (t==Uttt.E) {
         continue;
       }
       count = 1;
@@ -111,7 +111,7 @@ class Game {
     }
     int i,j;
     t = b[0][0];
-    if (t!=0) {
+    if (t!=Uttt.E) {
       count=1;
       i=1;
       j=1;
@@ -128,7 +128,7 @@ class Game {
       }
     }
     t = b[0][Uttt.board_size_ - 1];
-    if (t!=0) {
+    if (t!=Uttt.E) {
       count=1;
       i = 1;
       j = (Uttt.board_size_ - 2);
