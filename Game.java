@@ -132,7 +132,7 @@ class Game {
       i = 1;
       j = (Uttt.board_size_ - 2);
       for (  ; i<Uttt.board_size_ ; i++,j-- ) { //check diagonal 2
-        if ( b[j][i]==t ) {
+        if ( b[i][j]==t ) {
           count++;
         }
         else {
