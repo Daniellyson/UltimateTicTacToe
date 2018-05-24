@@ -48,6 +48,11 @@ class Game {
 
       //      get input
       Point placed_stone = getPlacement(); // returns a point with 9x9 limit(0 to 8)
+
+      if (placed_stone.x == -2) {
+        return 1;
+      }
+
       play_zone_.x = placed_stone.x % Uttt.board_size_; //set future playzone according to current placement
       play_zone_.y = placed_stone.y % Uttt.board_size_;
       if ( board_.getStatus(play_zone_)!=Uttt.E ) {
@@ -55,9 +60,7 @@ class Game {
         play_zone_.y = -1;
       }
 
-      if (placed_stone.x == -2) {
-        return 1;
-      }
+
       result_ = board_.placeStone(placed_stone, (byte)( (turn_%2)+1 ));
       turn_++;
       if ( result_!=Uttt.E ) {
