@@ -6,7 +6,7 @@ class Board {
 //  Members
   private MiniBoard[][] uboard_ = new MiniBoard[Uttt.board_size_][Uttt.board_size_];
   private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
-  private static char[] disp = {'.','X','O'};
+  public static char[] disp = {'.','X','O'};
 
 //  Methods
   public Board() {
