@@ -79,15 +79,11 @@ class Game {
       if (t==Uttt.E) {
         continue;
       }
-      count = 1;
       for (int j=1 ; j<Uttt.board_size_ ; j++ ) {
-        if ( b[i][j]==t ) {
-          count++;
-        }
-        else {
+        if ( b[i][j]!=t ) {
           break;
         }
-        if (count == Uttt.board_size_) {
+        if (j == (Uttt.board_size_ - 1) ) {
           return t;
         }
       }
@@ -98,50 +94,40 @@ class Game {
       if (t==Uttt.E) {
         continue;
       }
-      count = 1;
       for (int j=1 ; j<Uttt.board_size_ ; j++ ) {
-        if ( b[j][i]==t ) {
-          count++;
-        }
-        else {
+        if ( b[j][i]!=t ) {
           break;
         }
-        if (count == Uttt.board_size_) {
+        if (j == (Uttt.board_size_ - 1) ) {
           return t;
         }
       }
     }
-    int i,j;
+    //int i,j;
     t = b[0][0];
     if (t!=Uttt.E) {
-      count=1;
-      i=1;
-      j=1;
-      for (  ; i<Uttt.board_size_ ; i++ , j++ ) { //check diagonal 1
-        if ( b[j][i]==t ) {
-          count++;
-        }
-        else {
+      //count=1;
+      //i=1;
+      //j=1;
+      for ( int j=1  ; j<Uttt.board_size_ ; j++ ) { //check diagonal 1
+        if ( b[j][j]!=t ) {
           break;
         }
-        if (count == Uttt.board_size_) {
+        if (j == (Uttt.board_size_ - 1) ) {
           return t;
         }
       }
     }
     t = b[0][Uttt.board_size_ - 1];
     if (t!=Uttt.E) {
-      count=1;
-      i = 1;
-      j = (Uttt.board_size_ - 2);
-      for (  ; i<Uttt.board_size_ ; i++,j-- ) { //check diagonal 2
-        if ( b[i][j]==t ) {
-          count++;
-        }
-        else {
+      //count=1;
+      //i = 1;
+      //j = (Uttt.board_size_ - 2);
+      for ( int j=1 ; j<Uttt.board_size_ ; j++ ) { //check diagonal 2
+        if ( b[j][ ((Uttt.board_size_-1) - j) ]!=t ) {
           break;
         }
-        if (count == Uttt.board_size_) {
+        if (j == (Uttt.board_size_ - 1) ) {
           return t;
         }
       }
