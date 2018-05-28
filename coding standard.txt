@@ -1,0 +1,27 @@
+Coding standard:
+
+Variables:
+Lower Snake Case: variable_name_with_underscore_in_between_words
+
+Member Variables (fields):
+Lower Snake Case with trailing snake: variable_with_underscore_ending_
+
+Functions:
+Lower Camel Case: startingWithLowerCaseAndThenACapitalLetterForEachWord()
+
+Classes:
+Upper Camel Case: AllWordsStartWithCapitalLetter
+
+File Names:
+Same as classes
+
+Operators:
+should have a space on the ends "hello != HELLO"
+
+miscellaneous:
+
+if (test = correct) {
+  return 0;
+} else {
+  return 1;
+}
