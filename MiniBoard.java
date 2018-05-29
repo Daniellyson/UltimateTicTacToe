@@ -1,4 +1,4 @@
-package UltimateTicTacToe;
+//package UltimateTicTacToe;
 
 import java.awt.Point;
 
@@ -9,24 +9,24 @@ import java.awt.Point;
 
 class MiniBoard {
 //  Members
-  private byte[][] board_;
-  private byte result_;
-  
+  private byte[][] board_ = new byte[Uttt.board_size_][Uttt.board_size_];
+  //private char[] types_ = new char[2];
+  private byte result_ = Uttt.E;
+  //private char empty_space_ = Uttt.empty_space_;
+
 //  Methods
   public MiniBoard() {
-    board_ = new byte[Uttt.board_size_][Uttt.board_size_];
-//    board_[0][0] = 1;
-//    board_[0][1] = 2;
-//    board_[0][2] = 3;
-//    board_[1][0] = 4;
-//    board_[1][1] = 5;
-//    board_[1][2] = 6;
-//    board_[2][0] = 7;
-//    board_[2][1] = 8;
-//    board_[2][2] = 9;
-    result_ = 0;
+    //types_[0] = 'X';
+    //types_[1] = 'O';
+
+    for(int c=0; c< board_.length;c++) {
+      for(int d=0; d< board_[0].length;d++) {
+        board_[c][d] = Uttt.E;
+      }
+    }
+    //System.out.println("board 00 should be: - and is: " + board_[0][0]);
   }
-  
+
   public byte getPosition(Point coordinates) {
     if(result_ == 0) {
       return board_[coordinates.x][coordinates.y];
@@ -34,16 +34,19 @@ class MiniBoard {
       return result_;
     }
   }
-  
-  public int placeStone(Point placement, byte type) {
-    if ((result_ != 0) || (board_[placement.x][placement.y] != 0)) {
-//      illegal
+
+  public byte placeStone(Point placement, byte type) {
+    System.out.println("Placing stone");
+    if ((result_ != 0) || (board_[placement.x][placement.y] != Uttt.E)) {
+      //illegal
+      //System.out.println("illegal placement");
       return -1;
     } else {
-//      legal
-      type++;
+      //legal
+      //System.out.println("legal placement");
       board_[placement.x][placement.y] = type;
-      return 0;
+      result_= Game.checkIfWon(board_);
+      return result_;
     }
   }
 }
