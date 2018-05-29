@@ -1,3 +1,5 @@
+package UltimateTicTacToe;
+
 class TestClass {
   private byte[][] status_ = new byte[Uttt.board_size_][Uttt.board_size_];
   boolean changed;
@@ -10,10 +12,12 @@ class TestClass {
       }
     }
   }
+  
   public static void main(String[] args) {
     TestClass t= new TestClass();
     t.startTest();
   }
+  
   public void startTest() {
     byte result=Uttt.E;
     do{
@@ -27,6 +31,7 @@ class TestClass {
       incrementboard();
     }while (changed);
   }
+  
   private void incrementboard() {
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) {
       for (int j=0 ; j<Uttt.board_size_ ; j++ ) {

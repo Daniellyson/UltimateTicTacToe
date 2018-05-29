@@ -1,4 +1,4 @@
-//package UltimateTicTacToe;
+package UltimateTicTacToe;
 
 import java.awt.Point;
 
@@ -73,7 +73,6 @@ class Game {
 	//returns 0(nobody), 1(X) or 2(O), depending on who won
   public static byte checkIfWon(byte[][] b) {
     byte t;
-    int count;
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check horizontal 1 by 1
       t = b[i][0];
       if (t==Uttt.E) {
