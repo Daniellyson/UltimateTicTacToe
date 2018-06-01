@@ -5,7 +5,6 @@ import java.awt.Point;
 class Game {
   //  Members
   private String[] player_name_;
-  //  private String pOname;
   private int result_;
   private Board board_;
   private byte turn_;
@@ -53,13 +52,7 @@ class Game {
         return 1;
       }
 
-      play_zone_.x = placed_stone.x % Uttt.board_size_; //set future playzone according to current placement
-      play_zone_.y = placed_stone.y % Uttt.board_size_;
-      if ( board_.getStatus(play_zone_)!=Uttt.E ) {
-        play_zone_.x = -1;
-        play_zone_.y = -1;
-      }
-
+      updatePlayZone(placed_stone);
 
       result_ = board_.placeStone(placed_stone, (byte)( (turn_%2)+1 ));
       turn_++;
@@ -70,7 +63,16 @@ class Game {
     }
     return 0;
   }
-	//returns 0(nobody), 1(X) or 2(O), depending on who won
+  //set future playzone according to current placement
+  public void updatePlayZone( Point placed_stone ) { //placed_stone = the last placement
+      play_zone_.x = placed_stone.x % Uttt.board_size_;
+      play_zone_.y = placed_stone.y % Uttt.board_size_;
+      if ( board_.getStatus(play_zone_)!=Uttt.E ) {
+        play_zone_.x = -1;
+        play_zone_.y = -1;
+      }
+  }
+	//returns Uttt.E(nobody), Uttt.X(X) or Uttt.O(O), depending on who won
   public static byte checkIfWon(byte[][] b) {
     byte t;
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) { // check horizontal 1 by 1
@@ -102,12 +104,8 @@ class Game {
         }
       }
     }
-    //int i,j;
     t = b[0][0];
     if (t!=Uttt.E) {
-      //count=1;
-      //i=1;
-      //j=1;
       for ( int j=1  ; j<Uttt.board_size_ ; j++ ) { //check diagonal 1
         if ( b[j][j]!=t ) {
           break;
@@ -119,9 +117,6 @@ class Game {
     }
     t = b[0][Uttt.board_size_ - 1];
     if (t!=Uttt.E) {
-      //count=1;
-      //i = 1;
-      //j = (Uttt.board_size_ - 2);
       for ( int j=1 ; j<Uttt.board_size_ ; j++ ) { //check diagonal 2
         if ( b[j][ ((Uttt.board_size_-1) - j) ]!=t ) {
           break;
