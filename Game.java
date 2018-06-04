@@ -5,9 +5,9 @@ import java.awt.Point;
 class Game {
   //  Members
   private String[] player_name_;
-  private int result_;
-  private Board board_;
-  private byte turn_;
+  public int result_;
+  public Board board_;
+  public byte turn_;
   private Point play_zone_; // a 3x3 telling whhats the next eligible zone
 
 
@@ -23,6 +23,7 @@ class Game {
     player_name_[Uttt.X - 1] = "X"; //global constant -
     player_name_[Uttt.O - 1] = "O"; //global constant - 1
     play_zone_ = new Point(-1, -1); // this means, can play anywhere
+    System.out.println("game init() finished");
   }
 
   public int start() {
@@ -65,12 +66,36 @@ class Game {
   }
   //set future playzone according to current placement
   public void updatePlayZone( Point placed_stone ) { //placed_stone = the last placement
-      play_zone_.x = placed_stone.x % Uttt.board_size_;
-      play_zone_.y = placed_stone.y % Uttt.board_size_;
-      if ( board_.getStatus(play_zone_)!=Uttt.E ) {
-        play_zone_.x = -1;
-        play_zone_.y = -1;
+    int size = Uttt.board_size_;
+    System.out.println("updating Zone");
+    System.out.println("stone: " + placed_stone.x + "-" + placed_stone.y);
+    play_zone_.x = placed_stone.x % Uttt.board_size_;
+    play_zone_.y = placed_stone.y % Uttt.board_size_;
+    System.out.println("area: " + play_zone_.x + "-" + play_zone_.y);
+    if ( board_.getStatus(play_zone_)!=Uttt.E ) {
+      play_zone_.x = -1;
+      play_zone_.y = -1;
+
+      for(int x = 0; x < (size * size); x++) {
+        for(int y = 0; y < (size * size); y++) {
+          Uttt.gui_.cells_[x][y].setPlayable(true); 
+        }
+      }   
+    } else {
+      for(int x = 0; x < (size * size); x++) {
+        for(int y = 0; y < (size * size); y++) {
+          Uttt.gui_.cells_[x][y].setPlayable(false); 
+        }
+      } 
+      
+      int x = play_zone_.x;
+      int y = play_zone_.y;
+      for(int c=0; c < size; c++) {
+        for(int d=0; d < size; d++) {
+          Uttt.gui_.cells_[c + size * x][d + size * y].setPlayable(true); 
+        }
       }
+    }
   }
 	//returns Uttt.E(nobody), Uttt.X(X) or Uttt.O(O), depending on who won
   public static byte checkIfWon(byte[][] b) {
@@ -166,9 +191,13 @@ class Game {
     return placement;
   }
 
-  private Boolean isPlacementAllowed(Point placement) {
+  public Boolean isPlacementAllowed(Point placement) {
     //System.out.println("X is:" + placement.x + " and y is: " + placement.y);
 
+    if(result_ != Uttt.E) {
+      System.out.println("Sry the game is already won.");
+      return false;
+    }
     if(placement.x < 0) return false;
     if(placement.y < 0) return false;
     if(placement.x >= (Uttt.board_size_ * Uttt.board_size_)) return false;

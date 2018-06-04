@@ -6,8 +6,11 @@ class Uttt {
   //  Members
   public static Scanner scanner_;
   public static int control_ = 0;
+  public static boolean is_gui_active_ = false;
+  public static Gui gui_;
   
 //  Constants
+  public static boolean start_gui_;
   public static final int board_size_ = 3;
   public static final byte E = 0; //empty
   public static final byte X = 1;
@@ -20,14 +23,11 @@ class Uttt {
     System.out.println("Welcome! To the game of Ultimate Tic Tac Toe");
     String command;
 	  Game game;
-
-    System.out.println("Do you want to play with a GUI? Yes/No");
-//    command = scanner_.nextLine();
-//    command = command.toLowerCase();
-    command = "yes";
-    if(command.equalsIgnoreCase("yes")) {
-      Gui gui = new Gui();
-      gui.menu_.setVisible(true);//making the frame visible
+	  
+	  start_gui_ = true;
+    if(start_gui_ == true) {
+      gui_ = new Gui();
+      gui_.initGui();
       while(control_ == 0) {
         try{
           Thread.sleep(1000);
@@ -35,6 +35,7 @@ class Uttt {
           Thread.currentThread().interrupt();
         }
       }
+      gui_.setVisible(false);//making the frame visible
       System.out.println("Awake again, Gui has ended it seems");
     } else {
       while(control_ == 0) {
@@ -83,11 +84,12 @@ class Uttt {
       }
   
       //System.out.println("Control code: " + control); // whats the point of this, it will always be 1
-      end();
     }
+    end();
   }
 
   public static void end() {
+      gui_ = null;
       System.out.println("Thank you for playing!");
   }
 

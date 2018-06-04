@@ -59,7 +59,7 @@ class TestClass {
     System.out.println("");
     for (int i=0 ; i<Uttt.board_size_ ; i++ ) {
       for (int j=0 ; j<Uttt.board_size_ ; j++ ) {
-        System.out.print( Board.disp[status_[i][j]] );
+        System.out.print( Board.disp_[status_[i][j]] );
       }
       System.out.println("");
     }
