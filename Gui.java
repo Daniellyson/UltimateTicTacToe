@@ -110,7 +110,7 @@ public class Gui {
     board_ = new JFrame("Uttt board");//creating instance of JFrame  
     
     JButton back = new JButton("back");//creating instance of JButton  
-    back.setBounds(800,100,100, 50);//x axis, y axis, width, height     
+    back.setBounds(10 + (Uttt.cell_size_ + 5) * Uttt.board_size_ * Uttt.board_size_ + Uttt.board_size_ * 20 + 10,100,100, 50);//x axis, y axis, width, height     
     back.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         menu_.setVisible(true);

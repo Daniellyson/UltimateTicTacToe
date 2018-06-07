@@ -22,10 +22,10 @@ public class Cell {
 //    gui_ = gui;
     coordinate_ = new Point(x, y);
     String name = String.valueOf(coordinate_.x) + "-" + String.valueOf(coordinate_.y);
-    button_ = new JButton(name);
+    button_ = new JButton();
     button_.setOpaque(true);
     button_.setBackground(background_default_);
-    button_.setBounds(10 + 65*x + (x / Uttt.board_size_) * 20, 10 + 65*y + (y / Uttt.board_size_) * 20, 60, 60);//x axis, y axis, width, height     
+    button_.setBounds(10 + (Uttt.cell_size_ + 5) * x + (x / Uttt.board_size_) * 20, 10 + (Uttt.cell_size_ + 5) * y + (y / Uttt.board_size_) * 20, Uttt.cell_size_, Uttt.cell_size_);//x axis, y axis, width, height     
     button_.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         System.out.println("button: " + name + " was pressed!");

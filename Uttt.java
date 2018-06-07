@@ -12,6 +12,7 @@ class Uttt {
 //  Constants
   public static boolean start_gui_;
   public static final int board_size_ = 3;
+  public static final int cell_size_ = 50;
   public static final byte E = 0; //empty
   public static final byte X = 1;
   public static final byte O = 2;
