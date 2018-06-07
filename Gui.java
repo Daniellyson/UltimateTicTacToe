@@ -10,9 +10,11 @@ public class Gui {
   public Cell[][] cells_ = new Cell[Uttt.board_size_ * Uttt.board_size_][Uttt.board_size_ * Uttt.board_size_];;
   private Game game_;
   public int control_ = 0;
+  
+  private int back_button_width_ = 100;
     
   public void initGui() {
-
+    
     initMenu();
     initRules();
     
@@ -91,7 +93,7 @@ public class Gui {
     text.append("\n");  
     
     JButton back = new JButton("back");//creating instance of JButton  
-    back.setBounds(650,100,100, 50);//x axis, y axis, width, height     
+    back.setBounds(650,100,back_button_width_, 50);//x axis, y axis, width, height     
     back.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         rules_.setVisible(false);
@@ -110,7 +112,9 @@ public class Gui {
     board_ = new JFrame("Uttt board");//creating instance of JFrame  
     
     JButton back = new JButton("back");//creating instance of JButton  
-    back.setBounds(10 + (Uttt.cell_size_ + 5) * Uttt.board_size_ * Uttt.board_size_ + Uttt.board_size_ * 20 + 10,100,100, 50);//x axis, y axis, width, height     
+    back.setBounds((Uttt.cell_size_ + Uttt.cell_distance_) * Uttt.board_size_ * Uttt.board_size_ 
+        + (Uttt.board_size_ + 1) * Uttt.board_distance_,
+        Uttt.board_distance_, back_button_width_, 50);//x axis, y axis, width, height     
     back.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
         menu_.setVisible(true);
@@ -129,7 +133,9 @@ public class Gui {
       }
     }   
     
-    board_.setSize(1000,700);//400 width and 500 height  
+    int board_width = (Uttt.cell_size_ + Uttt.cell_distance_) * Uttt.board_size_ * Uttt.board_size_ 
+        + (Uttt.board_size_ + 1) * Uttt.board_distance_;
+    board_.setSize(board_width + back_button_width_ + 20, board_width + 40);//400 width and 500 height  
     board_.setLayout(null);//using no layout managers  
     
     return 0;

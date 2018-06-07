@@ -12,13 +12,18 @@ class Uttt {
 //  Constants
   public static boolean start_gui_;
   public static final int board_size_ = 3;
-  public static final int cell_size_ = 50;
   public static final byte E = 0; //empty
   public static final byte X = 1;
   public static final byte O = 2;
   
+//  gui size
+  public static final int cell_size_ = 50;
+  public static final int cell_distance_ = 5;
+  public static final int board_distance_ = 10;
+//  public static final int 
+  
 
-  //  Methods
+//    Methods
   public static void main(String[] args) {
     scanner_ = new Scanner(System.in);
     System.out.println("Welcome! To the game of Ultimate Tic Tac Toe");
