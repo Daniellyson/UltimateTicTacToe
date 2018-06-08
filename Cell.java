@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 import java.awt.Color;
 import java.awt.Image;
 
@@ -31,12 +32,13 @@ public class Cell {
     button_.setBackground(background_default_);
 
     try {
-      System.out.println("get icon");
+//      System.out.println("get icon");
 //      the images should be in the folder src/UltimateTicTacToe/resources/
 //      and the git folder is src/UltimateTicTacToe/
-      File imageFile = new File("src/UltimateTicTacToe/resources/icon_x_empty_small.png");
+      URL url = getClass().getResource("./resources/icon_x_empty_small.png");
+      File imageFile = new File(url.getPath());
       Image image_x = ImageIO.read(imageFile);
-      System.out.println("saved icon");
+//      System.out.println("saved icon");
       icon_x_ = new ImageIcon(image_x);
     } catch (Exception ex) {
       System.out.println(ex);
@@ -45,7 +47,8 @@ public class Cell {
     try {
 //    the images should be in the folder src/UltimateTicTacToe/resources/
 //    and the git folder is src/UltimateTicTacToe/
-      File imageFile = new File("src/UltimateTicTacToe/resources/icon_o_empty_small.png");
+      URL url = getClass().getResource("./resources/icon_o_empty_small.png");
+      File imageFile = new File(url.getPath());
       Image image_o = ImageIO.read(imageFile);
       icon_o_ = new ImageIcon(image_o);
     } catch (Exception ex) {
