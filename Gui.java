@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.net.URL;
 
 public class Gui {
 
@@ -25,27 +26,57 @@ public class Gui {
 	static {
 		BufferedImage x, xt, o, ot, e;
 		Boolean allFine = true;
+
 		try {
-			x = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/icons/X_opaque.png"));
+			URL url = Gui.class.getResource("./images/icons/X_opaque.png");
+			x = ImageIO.read(new File(url.getPath()));
 			System.out.println("X found");
-			xt = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/icons/X_transparent.png"));
-			System.out.println("Xt found");
-			o = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/icons/O_opaque.png"));
-			System.out.println("O found");
-			ot = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/icons/O_transparent.png"));
-			System.out.println("Ot found");
-			e = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/icons/Empty.png"));
-			System.out.println("Empty found");
 		} catch (IOException ex) {
-			System.out.println("Some image file not found");
-			x = xt = o = ot = e = null;
+			System.out.println("X_opaque not found");
+			x = null;
 			allFine = false;
 		}
+
+		try {
+			URL url = Gui.class.getResource("./images/icons/X_transparent.png");
+			xt = ImageIO.read(new File(url.getPath()));
+			System.out.println("Xt found");
+		} catch (IOException ex) {
+			System.out.println("X_transparent not found");
+			xt = null;
+			allFine = false;
+		}
+
+		try {
+			URL url = Gui.class.getResource("./images/icons/O_opaque.png");
+			o = ImageIO.read(new File(url.getPath()));
+			System.out.println("O found");
+		} catch (IOException ex) {
+			System.out.println("O_opaque not found");
+			o = null;
+			allFine = false;
+		}
+
+		try {
+			URL url = Gui.class.getResource("./images/icons/O_transparent.png");
+			ot = ImageIO.read(new File(url.getPath()));
+			System.out.println("Ot found");
+		} catch (IOException ex) {
+			System.out.println("O_transparent not found");
+			ot = null;
+			allFine = false;
+		}
+
+		try {
+			URL url = Gui.class.getResource("./images/icons/Empty.png");
+			e = ImageIO.read(new File(url.getPath()));
+			System.out.println("Empty found");
+		} catch (IOException ex) {
+			System.out.println("Empty not found");
+			e = null;
+			allFine = false;
+		}
+
 		ALL_FINE = allFine;
 		X_OPAQUE = x;
 		X_TRANSPARENT = xt;
@@ -80,7 +111,7 @@ public class Gui {
 		BOARD_GRID = new GridLayout(BOARD_SIZE, BOARD_SIZE, BOARD_GAP, BOARD_GAP);
 		MINIBOARD_GRID = new GridLayout(BOARD_SIZE, BOARD_SIZE, MINI_GAP, MINI_GAP);
 
-		frame = new JFrame("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O -1]);
+		frame = new JFrame("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O - 1]);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		board = new JPanel(BOARD_GRID);
 		board.setBackground(Color.WHITE);
@@ -138,7 +169,8 @@ public class Gui {
 
 	public void syncGui(Board board, boolean anywhere, MyPoint last) {
 
-		frame.setTitle("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O - 1] + " = Moves - " + match.getMoves());
+		frame.setTitle("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O - 1]
+				+ " = Moves - " + match.getMoves());
 
 		MyPoint p = new MyPoint();
 		for (p.boardDown = 0; p.boardDown < BOARD_SIZE; (p.boardDown)++) { // boardDown

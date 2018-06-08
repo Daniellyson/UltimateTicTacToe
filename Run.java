@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.net.URL;
 
 class Run {
 	/*Instance Variables*/
@@ -20,6 +21,10 @@ class Run {
 
 	/*Static Methods*/
 	public static void main(String[] args) {
+		if (!(Gui.ALL_FINE)) {
+			System.out.println("some gui icons not found");
+			return;
+		}
 		Run run = new Run();
 		run.intro();
 		run.mainMenu();
@@ -32,8 +37,8 @@ class Run {
 		frame.setSize(400, 400);
 		BufferedImage intro;
 		try {
-			intro = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/intro.png"));
+			URL url = getClass().getResource("./images/intro.png");
+			intro = ImageIO.read(new File(url.getPath()));
 		} catch (IOException e) {
 			System.out.println("intro image not found");
 			return;
@@ -64,16 +69,29 @@ class Run {
 		BufferedImage quitIcon;
 
 		try {
-			startIcon = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/menu/start.png"));
-			rulesIcon = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/menu/rules.png"));
-			quitIcon = ImageIO.read(new File(
-					"/home/kj/Documents/BOOKS/Computers/java/java_practice/UltimateTicTacToe/images/menu/quit.png"));
-		} catch (IOException e) {
-			System.out.println("some menu image not found");
+			URL url = getClass().getResource("./images/menu/start.png");
+			startIcon = ImageIO.read(new File(url.getPath()));
+		} catch(IOException e) {
+			System.out.println("menu image 'start' not found");
 			return;
 		}
+
+		try {
+			URL url = getClass().getResource("./images/menu/rules.png");
+			rulesIcon = ImageIO.read(new File(url.getPath()));
+		} catch(IOException e) {
+			System.out.println("menu image 'rules' not found");
+			return;
+		}
+
+		try {
+			URL url = getClass().getResource("./images/menu/quit.png");
+			quitIcon = ImageIO.read(new File(url.getPath()));
+		} catch (IOException e) {
+			System.out.println("menu image 'quit' not found");
+			return;
+		}
+
 		JLabel startLabel = new JLabel(new ImageIcon(startIcon));
 		JLabel rulesLabel = new JLabel(new ImageIcon(rulesIcon));
 		JLabel quitLabel = new JLabel(new ImageIcon(quitIcon));

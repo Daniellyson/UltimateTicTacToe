@@ -30,13 +30,13 @@ class MatchLocal {
 	}
 
 	/* Static Methods */
-	public static void main(String[] args) {
-		String[] s = new String[2];
-		s[0] = "me";
-		s[1] = "you";
-		MatchLocal match = new MatchLocal(3, s);
-		match.start();
-	}
+	// public static void main(String[] args) {
+	// 	String[] s = new String[2];
+	// 	s[0] = "me";
+	// 	s[1] = "you";
+	// 	MatchLocal match = new MatchLocal(3, s);
+	// 	match.start();
+	// }
 
 	/* Instance Methods */
 
