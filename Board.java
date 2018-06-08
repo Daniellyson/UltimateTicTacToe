@@ -1,65 +1,50 @@
 package UltimateTicTacToe;
 
-import java.awt.Point;
-
 class Board {
-//  Members
-  private MiniBoard[][] uboard_ = new MiniBoard[Uttt.board_size_][Uttt.board_size_];
-  private byte[][] status_ = new byte[Uttt.getBoardSize()][Uttt.board_size_];
-  public static char[] disp = {'.','X','O'};
+	/* Instance Variables */
+	public final int BOARD_SIZE;
+	private MiniBoard[][] board;
+	private byte[][] virtualBoard;
 
-//  Methods
-  public Board() {
-    for (int i = 0 ; i < Uttt.board_size_ ; i++) {
-      for (int j = 0 ; j < Uttt.board_size_ ; j++) {
-        uboard_[i][j] = new MiniBoard();
-      }
-    }
-  }
+	/* Constructors */
+	public Board(int size) {
+		BOARD_SIZE = size;
 
-  public int placeStone(Point point, byte type) { //here 'point' is 9x9 limit(0 to 8)
-    byte temp;
-    // '/'=chooses the Miniboard ; '%'=where in the chosen MiniBoard
-    Point pp = new Point(point.x % Uttt.board_size_,  point.y % Uttt.board_size_);
-    temp = uboard_[point.x / Uttt.board_size_][point.y / Uttt.board_size_].placeStone( pp  , type);
-    if (temp != Uttt.E) {
-      status_[point.x / Uttt.board_size_][point.y / Uttt.board_size_] = temp;
-      return ( Game.checkIfWon(status_) );
-    }
-    return 0;
-  }
+		board = new MiniBoard[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				board[i][j] = new MiniBoard(BOARD_SIZE);
+			}
+		}
 
-  public void display() {
-    System.out.println("The current Game position is:");
-    System.out.println("");
-    int size = Uttt.board_size_;
-    for(int c=0; c < (size * size); c++) {
-      System.out.print(c+1 + " ");
-      for(int d= 0; d < (size * size); d++) {
-        // display code is always ugly if you want to look it a certain way :C
-        System.out.print(  disp[ getPosition(new Point(d, c)) ]  );
-        if(((d%size) == size-1) && !(d == (size*size - 1))) System.out.print(" ");
-      }
-      if((c%size) == size-1) System.out.println("");
-      System.out.println("");
-    }
-    System.out.print("+ ");
-    for (int d=0; d< (size*size) ; d++ ) {
-      System.out.print(d+1);
-      if(((d%size) == size-1) && !(d == (size*size - 1))) System.out.print(" ");
-    }
-    System.out.println("");
-    System.out.println("");
-  }
+		virtualBoard = new byte[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
+				virtualBoard[i][j] = MiniBoard.EMPTY;
+			}
+		}
+	}
 
-  public byte getPosition(Point position) {
-    int x = position.x;
-    int y = position.y;
-    int size = Uttt.board_size_;
-    return uboard_[x/size][y/size].getPosition(new Point(x%Uttt.board_size_, y%Uttt.board_size_));
-  }
+	/* Instance Methods */
+	public byte placeStone(MyPoint placement, byte type) {
+		byte temp;
+		temp = board[placement.boardDown][placement.boardRight].placeStone(placement, type);
+		if (temp != MiniBoard.EMPTY) {
+			virtualBoard[placement.boardDown][placement.boardRight] = temp;
+			return (Referee.checkIfWon(virtualBoard, BOARD_SIZE));
+		}
+		return MiniBoard.EMPTY;
+	}
 
-  public byte getStatus(Point p) {
-    return status_[p.x][p.y];
-  }
+	public byte getPosition(MyPoint position) {
+		return (board[position.boardDown][position.boardRight].getPosition(position));
+	}
+
+	public byte getVirtualPosition(MyPoint vposition) {
+		return (virtualBoard[vposition.boardDown][vposition.boardRight]);
+	}
+
+	public byte getVirtualPosition(int bD, int bR){
+		return(virtualBoard[bD][bR]);
+	}
 }

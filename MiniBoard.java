@@ -1,52 +1,46 @@
 package UltimateTicTacToe;
 
-import java.awt.Point;
-
-//Types
-//0 = empty
-//1 = X
-//2 = O
-
 class MiniBoard {
-//  Members
-  private byte[][] board_ = new byte[Uttt.board_size_][Uttt.board_size_];
-  //private char[] types_ = new char[2];
-  private byte result_ = Uttt.E;
-  //private char empty_space_ = Uttt.empty_space_;
 
-//  Methods
-  public MiniBoard() {
-    //types_[0] = 'X';
-    //types_[1] = 'O';
+	/* Static Variables */
+	public static final byte EMPTY = 0;
+	public static final byte X = 1;
+	public static final byte O = 2;
 
-    for(int c=0; c< board_.length;c++) {
-      for(int d=0; d< board_[0].length;d++) {
-        board_[c][d] = Uttt.E;
-      }
-    }
-    //System.out.println("board 00 should be: - and is: " + board_[0][0]);
-  }
+	/* Instance Variables */
+	public final int BOARD_SIZE;
+	private byte[][] board;
+	private byte result;
 
-  public byte getPosition(Point coordinates) {
-    if(result_ == 0) {
-      return board_[coordinates.x][coordinates.y];
-    } else {
-      return result_;
-    }
-  }
+	/* Constructors */
+	public MiniBoard(int size) { // Initialize MiniBoard
+		BOARD_SIZE = size;
+		board = new byte[BOARD_SIZE][BOARD_SIZE];
+		for (int c = 0; c < board.length; c++) {
+			for (int d = 0; d < board[0].length; d++) {
+				board[c][d] = MiniBoard.EMPTY;
+			}
+		}
+		result = MiniBoard.EMPTY;
+	}
 
-  public byte placeStone(Point placement, byte type) {
-    System.out.println("Placing stone");
-    if ((result_ != 0) || (board_[placement.x][placement.y] != Uttt.E)) {
-      //illegal
-      //System.out.println("illegal placement");
-      return -1;
-    } else {
-      //legal
-      //System.out.println("legal placement");
-      board_[placement.x][placement.y] = type;
-      result_= Game.checkIfWon(board_);
-      return result_;
-    }
-  }
+	/* Instance Methods */
+	public byte getPosition(MyPoint position) {
+		if (result == MiniBoard.EMPTY) {
+			return board[position.miniDown][position.miniRight];
+		} else {
+			return result;
+		}
+	}
+
+	public byte placeStone(MyPoint placement, byte type) {
+		board[placement.miniDown][placement.miniRight] = type;
+		result = Referee.checkIfWon(board, BOARD_SIZE);
+		return result;
+
+		// if ((result != MiniBoard.EMPTY) || (board[placement.mD][placement.mR] != MiniBoard.EMPTY)) { //illegal
+		// 	return -1; //Control code for illegal placement
+		// } else { //legal
+		// }
+	}
 }
