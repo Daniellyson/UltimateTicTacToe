@@ -11,6 +11,7 @@ class MiniBoard {
 	public final int BOARD_SIZE;
 	private byte[][] board;
 	private byte result;
+	private int numMoves;
 
 	/* Constructors */
 	public MiniBoard(int size) { // Initialize MiniBoard
@@ -22,6 +23,7 @@ class MiniBoard {
 			}
 		}
 		result = MiniBoard.EMPTY;
+		numMoves = 0;
 	}
 
 	/* Instance Methods */
@@ -35,6 +37,8 @@ class MiniBoard {
 
 	public byte placeStone(MyPoint placement, byte type) {
 		board[placement.miniDown][placement.miniRight] = type;
+		System.out.println(placement.boardDown+","+placement.boardRight+","+placement.miniDown+","+placement.miniRight);
+		numMoves++;
 		result = Referee.checkIfWon(board, BOARD_SIZE);
 		return result;
 
@@ -42,5 +46,13 @@ class MiniBoard {
 		// 	return -1; //Control code for illegal placement
 		// } else { //legal
 		// }
+	}
+
+	public boolean isFull() {
+		if (numMoves == (BOARD_SIZE * BOARD_SIZE)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

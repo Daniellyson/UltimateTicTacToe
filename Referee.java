@@ -19,7 +19,7 @@ class Referee {
 	}
 
 	public static boolean canIPlayAnywhere(MyPoint last, Board board) {
-		if (board.getVirtualPosition(last.miniDown, last.miniRight) == MiniBoard.EMPTY) {
+		if ((board.getVirtualPosition(last.miniDown, last.miniRight) == MiniBoard.EMPTY) && !(board.getIsFullPosition(last.miniDown, last.miniRight)) ) {
 			return false;
 		}
 		return true;
