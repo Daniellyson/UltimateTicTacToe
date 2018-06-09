@@ -71,7 +71,7 @@ class Run {
 		try {
 			URL url = getClass().getResource("./images/menu/start.png");
 			startIcon = ImageIO.read(new File(url.getPath()));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("menu image 'start' not found");
 			return;
 		}
@@ -79,7 +79,7 @@ class Run {
 		try {
 			URL url = getClass().getResource("./images/menu/rules.png");
 			rulesIcon = ImageIO.read(new File(url.getPath()));
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("menu image 'rules' not found");
 			return;
 		}
@@ -179,14 +179,14 @@ class Run {
 
 			String sizeString = sizeField.getText();
 
-			if (name[0].length() > 10 || name[1].length() > 10 || name[0].length() < 3 || name[1].length() < 3) {
-				info.setText("*names should be less than 11 characters and more than 2");
+			if (name[0].length() > 10 || name[1].length() > 10 || name[0].length() < 2 || name[1].length() < 2) {
+				info.setText("*names should be less than 11 characters and more than 1");
 				SwingUtilities.updateComponentTreeUI(setupFrame);
 				return;
 			}
 
 			if (sizeString.length() != 1) {
-				info.setText("*size should be less than 10 and it should be mentioned in digits ");
+				info.setText("*size should be a single character");
 				SwingUtilities.updateComponentTreeUI(setupFrame);
 				return;
 			}

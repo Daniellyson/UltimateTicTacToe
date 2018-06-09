@@ -204,7 +204,7 @@ public class Gui {
 
 		if (last != null) {
 			p = last;
-			cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.LIGHT_GRAY);
+			cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.YELLOW);
 		}
 
 		if (lastPlayedPoint != null) {
