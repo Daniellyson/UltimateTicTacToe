@@ -33,7 +33,7 @@ public class Gui {
         assert game_ != null;
         game_.init();
         initBoard();
-        menu_.setVisible(true);
+        menu_.setVisible(false);
         board_.setVisible(true);
       }  
     });         
@@ -43,7 +43,7 @@ public class Gui {
     rules.setBounds(100,200,200, 50);//x axis, y axis, width, height
     rules.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
-        menu_.setVisible(true);
+        menu_.setVisible(false);
         rules_.setVisible(true);
       }  
     });
