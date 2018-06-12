@@ -15,6 +15,8 @@ class MatchLocal {
 	private byte turn;
 	private boolean processing;
 	private boolean decided;
+	private MyPoint lastPlayedPoint;
+	private boolean canIAnywhere;
 
 	/* Constructors */
 	public MatchLocal(int size, String[] name) {
@@ -47,14 +49,26 @@ class MatchLocal {
 
 	public void moveplaced(MyPoint placement) {
 		processing = true;
+
+		if (!(Referee.isPlacementAllowed(placement, lastPlayedPoint, canIAnywhere, board))) {
+			System.out.println("Invalid Placement");
+			processing = false;
+			return;
+		}
+
+		lastPlayedPoint = placement;
+
 		byte temp;
 		temp = board.placeStone(placement, turn);
 		if (temp != MiniBoard.EMPTY) {
 			end(temp);
 		}
+
+		canIAnywhere = Referee.canIPlayAnywhere(lastPlayedPoint, board);
+
 		moves++;
 		updateTurn();
-		gui.syncGui(board, Referee.canIPlayAnywhere(placement, board), placement);
+		gui.syncGui(board, canIAnywhere, lastPlayedPoint);
 		processing = false;
 	}
 

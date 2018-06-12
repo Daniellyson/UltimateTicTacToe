@@ -199,17 +199,17 @@ public class Gui {
 								.setEligible(Referee.isPlacementAllowed(p, last, anywhere, board));
 					}
 				}
-				if (anywhere) {
-					miniBoard[p.boardDown][p.boardRight].setBackground(Color.LIGHT_GRAY);
-				} else {
-					miniBoard[p.boardDown][p.boardRight].setBackground(Color.WHITE);
-				}
+				// if (anywhere) {
+				// 	miniBoard[p.boardDown][p.boardRight].setBackground(Color.LIGHT_GRAY);
+				// } else {
+				// 	miniBoard[p.boardDown][p.boardRight].setBackground(Color.WHITE);
+				// }
 			}
 		}
 
-		if (!anywhere) {
-			miniBoard[last.miniDown][last.miniRight].setBackground(Color.LIGHT_GRAY);
-		}
+		// if (!anywhere) {
+		// 	miniBoard[last.miniDown][last.miniRight].setBackground(Color.LIGHT_GRAY);
+		// }
 
 		if (last != null) {
 			p = last;
