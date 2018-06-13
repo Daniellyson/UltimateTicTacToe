@@ -12,8 +12,8 @@ import java.net.URL;
 public class Gui {
 
 	/* Static Variables */
-	private static final int BOARD_GAP = 30; //gap btw mini-boards
-	private static final int MINI_GAP = 1; //gap btw cells in any mini-board
+	private static final int BOARD_GAP = 1; //gap btw mini-boards
+	private static final int MINI_GAP = 0; //gap btw cells in any mini-board
 	private static final int ICON_SIZE = 30; //pixel size of square icons
 	private static final BufferedImage X_OPAQUE;
 	private static final BufferedImage X_TRANSPARENT;
@@ -98,7 +98,7 @@ public class Gui {
 	private JPanel[][] miniBoard; // 3 x 3 = localboards
 	private MyCellPanel[][][][] cell; // (3 x 3) x (3 x 3) = localboard x cell
 	private JLabel[][][][] cellLabel; // (3 x 3) x (3 x 3) = a label for each cell;
-	private MyPoint lastPlayedPoint;
+	// private MyPoint lastPlayedPoint;
 
 	/* Constructors */
 	public Gui(int size, String[] name, MatchLocal m) {
@@ -114,7 +114,7 @@ public class Gui {
 		frame = new JFrame("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O - 1]);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		board = new JPanel(BOARD_GRID);
-		board.setBackground(Color.WHITE);
+		board.setBackground(Color.BLACK);
 		frame.getContentPane().add(board);
 
 		// add 9 mini board panels to the board panel
@@ -167,7 +167,7 @@ public class Gui {
 	// 	System.out.println("reached here");
 	// }
 
-	public void syncGui(Board board, boolean anywhere, MyPoint last) {
+	public void syncGui(Board tempBoard, boolean anywhere, MyPoint last) {
 
 		frame.setTitle("Match: X-" + playerName[MiniBoard.X - 1] + " vs O-" + playerName[MiniBoard.O - 1]
 				+ " = Moves - " + match.getMoves());
@@ -178,7 +178,7 @@ public class Gui {
 				for (p.miniDown = 0; p.miniDown < BOARD_SIZE; p.miniDown++) { //miniDown
 					for (p.miniRight = 0; p.miniRight < BOARD_SIZE; p.miniRight++) { //miniRight
 
-						switch (board.getPosition(p)) {
+						switch (tempBoard.getPosition(p)) {
 						case MiniBoard.EMPTY:
 							cellLabel[p.boardDown][p.boardRight][p.miniDown][p.miniRight]
 									.setIcon(new ImageIcon(Gui.EMPTY));
@@ -196,7 +196,13 @@ public class Gui {
 							break;
 						}
 						cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight]
-								.setEligible(Referee.isPlacementAllowed(p, last, anywhere, board));
+								.setEligible(Referee.isPlacementAllowed(p, last, anywhere, tempBoard));
+						if (anywhere) {
+							cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight]
+									.setBackground(Gui.VERY_LIGHT_YELLOW);
+						} else {
+							cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.WHITE);
+						}
 					}
 				}
 				// if (anywhere) {
@@ -211,17 +217,25 @@ public class Gui {
 		// 	miniBoard[last.miniDown][last.miniRight].setBackground(Color.LIGHT_GRAY);
 		// }
 
+		if (!anywhere) {
+			for (int mD = 0; mD < BOARD_SIZE; mD++) {
+				for (int mR = 0; mR < BOARD_SIZE; mR++) {
+					cell[last.miniDown][last.miniRight][mD][mR].setBackground(Gui.VERY_LIGHT_YELLOW);
+				}
+			}
+		}
+
 		if (last != null) {
 			p = last;
 			cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.YELLOW);
 		}
 
-		if (lastPlayedPoint != null) {
-			p = lastPlayedPoint;
-			cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.WHITE);
-		}
+		// if (lastPlayedPoint != null) {
+		// 	p = lastPlayedPoint;
+		// 	cell[p.boardDown][p.boardRight][p.miniDown][p.miniRight].setBackground(Color.WHITE);
+		// }
 
-		lastPlayedPoint = last;
+		// lastPlayedPoint = last;
 
 		SwingUtilities.updateComponentTreeUI(frame);
 	}
@@ -243,7 +257,7 @@ public class Gui {
 
 				match.moveplaced(p);
 
-				lastPlayedPoint = p;
+				// lastPlayedPoint = p;
 			}
 		}
 
