@@ -49,10 +49,6 @@ class MiniBoard {
 	}
 
 	public boolean isFull() {
-		if (numMoves == (BOARD_SIZE * BOARD_SIZE)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (numMoves == (BOARD_SIZE * BOARD_SIZE));	
 	}
 }
